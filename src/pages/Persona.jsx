@@ -13,7 +13,7 @@ function Personas() {
   const [persons, setPersonas] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
   const [loading, setLoading] = useState(false);
-  cost[(error, setError)] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadPersonas();

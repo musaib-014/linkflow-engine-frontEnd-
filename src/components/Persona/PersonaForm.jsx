@@ -21,13 +21,13 @@ function PersonaForm({ onAddPersona, onUpdatePersona, selectedPersona }) {
 
     if (selectedPersona) {
       onUpdatePersona({
-        id: selectedPersona.id,
+        // id: selectedPersona.id,
         personaName,
         description,
       });
     } else {
       onAddPersona({
-        id: Date.now(),
+        // id: Date.now(),
         personaName,
         description,
       });
