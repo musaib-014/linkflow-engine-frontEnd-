@@ -1,19 +1,17 @@
 import PersonaCard from "./PersonaCard";
 
-function PersinaList({ personas }) {
+function PersonaList({ personas, onDeletePersona }) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gap: "16px",
-        gridTemplateColumns: "repeat(auto-fill,minmax(250px, 1fr))",
-      }}
-    >
+    <div className="persona-grid">
       {personas.map((persona) => (
-        <PersinaList key={persona.id} persona={persona} />
+        <PersonaCard
+          key={persona.id}
+          persona={persona}
+          onDeletePersona={onDeletePersona}
+        />
       ))}
     </div>
   );
 }
 
-export default PersinaList;
+export default PersonaList;

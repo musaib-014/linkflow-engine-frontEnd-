@@ -1,7 +1,7 @@
 import { useState } from "react";
-import PersinaList from "../components/Persona/PersonaList";
+import PersonaList from "../components/Persona/PersonaList";
 import PersonaForm from "../components/Persona/PersonaForm";
-import "./Persona.css";
+import "./Personas.css";
 
 function Personas() {
   const [persons, setPersonas] = useState([]);
@@ -10,13 +10,17 @@ function Personas() {
     setPersonas((prev) => [...prev, persona]);
   }
 
+  function deletePersona(id) {
+    setPersonas((prev) => prev.filter((p) => p.id !== id)); // adds all the elements with different id into Personas
+  }
+
   return (
-    <div>
+    <div className="persona-page">
       <h1>Personas</h1>
 
       <PersonaForm onAddPersona={addPersona} />
 
-      <PersinaList personas={persons} />
+      <PersonaList personas={persons} onDeletePersona={deletePersona} />
     </div>
   );
 }

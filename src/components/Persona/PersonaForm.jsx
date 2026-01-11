@@ -18,7 +18,7 @@ function PersonaForm({ onAddPersona }) {
     onAddPersona(newPersona);
 
     setPersonaName("");
-    description("");
+    setDescription("");
   }
 
   return (

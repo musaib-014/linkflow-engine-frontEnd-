@@ -1,3 +1,28 @@
+.persona-page {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+.persona-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.card-actions button {
+  padding: 6px 10px;
+}
+
 form {
   border: 1px solid #ddd;
   padding: 16px;
