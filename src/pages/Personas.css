@@ -12,7 +12,7 @@
   border: 1px solid #ddd;
   padding: 16px;
   border-radius: 8px;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 .card-actions {
   display: flex;

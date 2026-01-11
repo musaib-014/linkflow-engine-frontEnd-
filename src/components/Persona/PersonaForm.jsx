@@ -1,21 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function PersonaForm({ onAddPersona }) {
+function PersonaForm({ onAddPersona, onUpdatePersona, selectedPersona }) {
   const [personaName, setPersonaName] = useState("");
   const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    if (selectedPersona) {
+      setPersonaName(selectedPersona.personaName);
+      setDescription(selectedPersona.description);
+    } else {
+      setPersonaName("");
+      setDescription("");
+    }
+  }, [selectedPersona]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!personaName.trim() || !description.trim()) return;
 
-    const newPersona = {
-      id: Date.now(),
-      personaName,
-      description,
-    };
-
-    onAddPersona(newPersona);
+    if (selectedPersona) {
+      onUpdatePersona({
+        id: selectedPersona.id,
+        personaName,
+        description,
+      });
+    } else {
+      onAddPersona({
+        id: Date.now(),
+        personaName,
+        description,
+      });
+    }
 
     setPersonaName("");
     setDescription("");
@@ -23,7 +39,7 @@ function PersonaForm({ onAddPersona }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Create Persona</h2>
+      <h2>{selectedPersona ? "Edit Person" : "Create Persona"}</h2>
 
       <div>
         <label>Persona Name</label>
@@ -41,7 +57,9 @@ function PersonaForm({ onAddPersona }) {
         />
       </div>
 
-      <button type="submit">Add Persona</button>
+      <button type="submit">
+        {selectedPersona ? "Upddate Person" : "Add Persona"}
+      </button>
     </form>
   );
 }

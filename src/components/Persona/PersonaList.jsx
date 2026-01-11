@@ -1,6 +1,6 @@
 import PersonaCard from "./PersonaCard";
 
-function PersonaList({ personas, onDeletePersona }) {
+function PersonaList({ personas, onDeletePersona, onEditPersona }) {
   return (
     <div className="persona-grid">
       {personas.map((persona) => (
@@ -8,6 +8,7 @@ function PersonaList({ personas, onDeletePersona }) {
           key={persona.id}
           persona={persona}
           onDeletePersona={onDeletePersona}
+          onEditPersona={onEditPersona}
         />
       ))}
     </div>
