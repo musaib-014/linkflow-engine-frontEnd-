@@ -85,7 +85,8 @@ function Personas() {
   return (
     <div className="persona-page">
       <h1>Personas</h1>
-
+      {loading && <p>Loading...</p>}
+      {error && <p className="error">{error}</p>}
       <PersonaForm
         onAddPersona={addPersona}
         onUpdatePersona={updatePersona}
