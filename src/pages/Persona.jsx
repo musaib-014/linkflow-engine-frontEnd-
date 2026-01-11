@@ -1,29 +1,85 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PersonaList from "../components/Persona/PersonaList";
 import PersonaForm from "../components/Persona/PersonaForm";
+import {
+  fetchPersonas,
+  createPersona,
+  updatePersona,
+  deletePersona,
+} from "../api/personaApi";
 import "./Personas.css";
 
 function Personas() {
   const [persons, setPersonas] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
+  const [loading, setLoading] = useState(false);
+  cost[(error, setError)] = useState(null);
 
-  function addPersona(persona) {
-    setPersonas((prev) => [...prev, persona]);
+  useEffect(() => {
+    loadPersonas();
+  }, []);
+
+  async function loadPersonas() {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const data = await fetchPersonas();
+      setPersonas(data);
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   }
 
-  function deletePersona(id) {
-    setPersonas((prev) => prev.filter((p) => p.id !== id)); // adds all the elements with different id into Personas
+  async function addPersona(persona) {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const saved = await createPersona(persona);
+      setPersonas((prev) => [...prev, saved]);
+    } catch (err) {
+      setError(err.message || "Failed to create persona");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function deletePersona(id) {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await deletePersona(id);
+      setPersonas((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      setError(err.message || "Failed to delete persona");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function startEditPersona(persona) {
     setSelectedPersona(persona);
   }
 
-  function updatePersona(updatedPersona) {
-    setPersonas((prev) =>
-      prev.map((p) => (p.id === updatedPersona.id ? updatedPersona : p))
-    );
-    setSelectedPersona(null);
+  async function updatePersona(persona) {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const updated = await updatePersona(persona);
+      setPersonas((prev) =>
+        prev.map((p) => (p.id === updated.id ? updated : p))
+      );
+      setSelectedPersona(null);
+    } catch (err) {
+      setError(err.message || "Failed to update persona");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
