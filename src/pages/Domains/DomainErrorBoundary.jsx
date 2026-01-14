@@ -9,7 +9,7 @@ class DomainErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <h2>Failed to load Domains page.</h2>;
+      return <h2>Something went wrong in Domains page.</h2>;
     }
     return this.props.children;
   }
