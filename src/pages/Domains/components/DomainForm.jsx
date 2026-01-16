@@ -9,7 +9,7 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
   useEffect(() => {
     if (selectedDomain) {
       setDomainName(selectedDomain.domainName);
-      setNiche(selectedDomain.niche);
+      setNiche(selectedDomain.niche || []);
       setPersonaId(selectedDomain.personaId || "");
     } else {
       resetForm();
@@ -25,7 +25,6 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
 
   function addNiche() {
     if (!nicheInput.trim()) return;
-    if (niche.includes(nicheInput)) return;
     setNiche((prev) => [...prev, nicheInput.trim()]);
     setNicheInput("");
   }
@@ -39,9 +38,11 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
       personaId: personaId || null,
     };
 
-    selectedDomain
-      ? onUpdate({ ...payload, id: selectedDomain.id })
-      : onAdd(payload);
+    if (selectedDomain) {
+      onUpdate({ ...payload, id: selectedDomain.id });
+    } else {
+      onAdd(payload);
+    }
 
     resetForm();
   }
@@ -54,12 +55,11 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
         placeholder="example.com"
         value={domainName}
         onChange={(e) => setDomainName(e.target.value)}
-        required
       />
 
       <div>
         <input
-          placeholder="Add niche"
+          placeholder="Add niche (e.g. Tech)"
           value={nicheInput}
           onChange={(e) => setNicheInput(e.target.value)}
         />
@@ -69,8 +69,8 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
       </div>
 
       <div>
-        {niche.map((n) => (
-          <span key={n} className="tag">
+        {niche.map((n, i) => (
+          <span key={i} className="tag">
             {n}
           </span>
         ))}
@@ -85,7 +85,9 @@ function DomainForm({ onAdd, onUpdate, selectedDomain, personas }) {
         ))}
       </select>
 
-      <button type="submit">{selectedDomain ? "Update" : "Create"}</button>
+      <button type="submit">
+        {selectedDomain ? "Update Domain" : "Create Domain"}
+      </button>
     </form>
   );
 }

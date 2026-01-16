@@ -1,0 +1,31 @@
+.error {
+  color: red;
+}
+
+.balance-positive {
+  color: lightgreen;
+}
+
+.balance-negative {
+  color: lightcoral;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.pagination {
+  margin-top: 12px;
+}
+.controls {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+}
